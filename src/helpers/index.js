@@ -1,2 +1,3 @@
 export {wh, ww} from './responsive';
-export {getDistance} from './getDistance'
+export {titleCase} from './titleCase';
+export {randomColor} from './randomColor';

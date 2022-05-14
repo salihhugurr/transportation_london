@@ -2,14 +2,15 @@ import React, { useRef } from "react";
 import { View, Animated } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import DetailsScreen from "./src/screens/DetailsScreen";
 import FavoriteScreen from "./src/screens/FavoriteScreen";
 import { wh, ww } from "./src/helpers";
 import { AppColor, Secondary, White } from "./src/constants";
 import FavIconUnfilled from "./src/assets/Icons/FavIconUnfilled";
-import { HomeIcon,FavIcon } from "./src/assets/Icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeIcon from "./src/assets/Icons/HomeIcon";
+import FavIcon from "./src/assets/Icons/FavIcon";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,7 +38,7 @@ const Router = () => {
         <Tab.Navigator
           screenOptions={{
             tabBarShowLabel: false,
-            headerShown: false,
+            headerShown:false,
             tabBarStyle: {
               backgroundColor: White,
               borderTopRightRadius: 10,
@@ -61,7 +62,7 @@ const Router = () => {
           }} listeners={({ navigation, route }) => ({
             tabPress: e => {
               Animated.spring(tabOffsetValue, {
-                toValue: ww(.015),
+                toValue: 0,
                 useNativeDriver: true,
               }).start();
             },
@@ -70,7 +71,7 @@ const Router = () => {
             tabBarIcon: ({ focused }) => (
               <View style={{ position: "absolute", top: "40%" }}>
                 {
-                  focused ? <FavIcon color={AppColor} /> : <FavIconUnfilled color={AppColor} />
+                  focused ? <FavIcon color={Secondary} /> : <FavIconUnfilled color={AppColor} />
                 }
               </View>
             ),
@@ -104,7 +105,9 @@ const Router = () => {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+          headerShown:false
+        }}>
           <Stack.Screen name={"TabStack"} component={TabStack} />
           <Stack.Screen name={"Details"} component={DetailsScreen} />
         </Stack.Navigator>
@@ -115,7 +118,7 @@ const Router = () => {
   function getWidth() {
     let width = ww();
     width = width - ww(.02);
-    return width / 5;
+    return width / 2;
   }
 };
 
