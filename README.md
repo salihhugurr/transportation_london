@@ -45,6 +45,14 @@ You can see all stations of selected line.
 
 3-If you click one item from the list you will see time table of this station. (Time Table Screen)
 
+### Favorite Screen
+
+You can see all lines that you favorited.
+
+1-You can delete favorites.
+
+2-If you click one item from the list you will see all stations of this line. (Stations Screen)
+
 ### Time Table Screen
 
 You can see time table of selected station.
