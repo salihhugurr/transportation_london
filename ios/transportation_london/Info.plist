@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>NSCameraUsageDescription</key>
+    <string>For QR Scanning</string>
 	<key>CFBundleDisplayName</key>
 	<string>transportation_london</string>
 	<key>CFBundleExecutable</key>

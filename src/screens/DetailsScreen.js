@@ -43,7 +43,6 @@ const DetailsScreen = ({ route }) => {
   };
 
   const ifExists = fav => {
-    console.log(favorites);
     if (favorites.filter(item => item.id === fav.id).length > 0) {
       return true;
     } else return false;
@@ -52,7 +51,8 @@ const DetailsScreen = ({ route }) => {
 
   useEffect(() => {
     getLines();
-  }, []);
+    setLoading(true)
+  }, [serviceType]);
 
   const getLines = async () => {
     try {
@@ -128,7 +128,9 @@ const DetailsScreen = ({ route }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
       <Loader loading={loading} />
-      <CustomHeader title={mode} onPressLeft={() => navigation.goBack()} />
+      <CustomHeader title={mode} onPressLeft={() => navigation.goBack()} regular={serviceType === "Regular"} onPressRight={()=>{
+        serviceType === "Regular" ? setServiceType("Night") : setServiceType("Regular")
+      }}/>
 
       <View style={STYLES.searchWrapper}>
         <SearchIcon color={Secondary}/>

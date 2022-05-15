@@ -11,6 +11,8 @@ import FavIconUnfilled from "./src/assets/Icons/FavIconUnfilled";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeIcon from "./src/assets/Icons/HomeIcon";
 import FavIcon from "./src/assets/Icons/FavIcon";
+import LineDetail from "./src/screens/LineDetail";
+import TimeTable from "./src/screens/TimeTable";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,6 +112,8 @@ const Router = () => {
         }}>
           <Stack.Screen name={"TabStack"} component={TabStack} />
           <Stack.Screen name={"Details"} component={DetailsScreen} />
+          <Stack.Screen name={"LineDetail"} component={LineDetail} />
+          <Stack.Screen name={"TimeTable"} component={TimeTable} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
