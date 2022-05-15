@@ -21,7 +21,7 @@ You can select a transportation mode from grid list view and then you will see t
 At the top right of screen there is a QR Code Scanner button to scan qr which has properties lineId,fromStationId,toStationId,title.And then you can see time table of these given properties.From Time Table Screen.You can easily scan qr below this line.
 
 
-![qr](./src/assets/images/qr.png)
+![qr](./src/assets/Images/qr.png)
 
 ### Lines Screen
 
