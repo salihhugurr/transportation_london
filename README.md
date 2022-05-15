@@ -17,13 +17,13 @@
 
 ### Home Screen
 
-![home](./src/assets/Images/Home.png)
+![home](./src/assets/Images/Home.png | width=250)
 
 You can select a transportation mode from grid list view and then you will see the lines of selected mode. (Lines Screen)
 At the top right of screen there is a QR Code Scanner button to scan qr which has properties lineId,fromStationId,toStationId,title.And then you can see time table of these given properties.From Time Table Screen.You can easily scan qr below this line.
 
 
-![qr](./src/assets/Images/qr.png)
+![qr](./src/assets/Images/qr.png | width=250)
 
 ### Lines Screen
 
@@ -37,7 +37,7 @@ You can see all lines of selected transportation mode from the list.
 
 4-If you click one item from the list you will see all stations of this line. (Stations Screen)
 
-![lines](./src/assets/Images/Lines.png)
+![lines](./src/assets/Images/Lines.png | width=250)
 
 ### Stations Screen
 
@@ -49,7 +49,7 @@ You can see all stations of selected line.
 
 3-If you click one item from the list you will see time table of this station. (Time Table Screen)
 
-![stations](./src/assets/Images/Stations.png)
+![stations](./src/assets/Images/Stations.png | width=250)
 
 ### Favorite Screen
 
@@ -59,7 +59,7 @@ You can see all lines that you favorited.
 
 2-If you click one item from the list you will see all stations of this line. (Stations Screen)
 
-![fav](./src/assets/Images/Favorite.png)
+![fav](./src/assets/Images/Favorites.png | width=250)
 
 ### Time Table Screen
 
@@ -67,7 +67,7 @@ You can see time table of selected station.
 
 You can select time zones from the swipeable screen.At Mon-Th and Friday tabs you can select School Days and Non School Days 
 
-![tt](./src/assets/Images/TimeTable.png)
+![tt](./src/assets/Images/TimeTable.png | width=250)
 
 ### Notes
 
