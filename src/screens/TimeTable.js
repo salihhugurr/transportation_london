@@ -105,7 +105,9 @@ const TimeTable = ({ route }) => {
         <View style={{ flexDirection: "row", height: wh(.05) }}>
           <TouchableOpacity
             onPress={() => {
-              scrollRef.current.scrollTo({ x: 0 });
+              console.log("scrollRef",scrollRef)
+              scrollRef.current.scrollTo({ x: 0, });
+              setPage(1);
             }}
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
             <Text style={[STYLES.modeText, { color: page === 1 ? AppColor : "#666" }]}>Mon-Th</Text>
@@ -113,19 +115,22 @@ const TimeTable = ({ route }) => {
           <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
                             onPress={() => {
                               scrollRef.current.scrollTo({ x: ww() });
+                              setPage(2);
                             }}
           >
             <Text style={[STYLES.modeText, { color: page === 2 ? AppColor : "#666" }]}>Friday</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
                             onPress={() => {
-                              scrollRef.current.scrollTo({ x: ww() * 2 });
+                              scrollRef.current.scrollTo({ x: ww() * 2});
+                              setPage(3);
                             }}>
             <Text style={[STYLES.modeText, { color: page === 3 ? AppColor : "#666" }]}>Saturday</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
                             onPress={() => {
                               scrollRef.current.scrollTo({ x: ww() * 3 });
+                              setPage(4);
                             }}>
             <Text style={[STYLES.modeText, { color: page === 4 ? AppColor : "#666" }]}>Sunday</Text>
           </TouchableOpacity>
@@ -159,7 +164,6 @@ const TimeTable = ({ route }) => {
           horizontal={true}
           pagingEnabled={true}
           ref={scrollRef}
-          scrollEnabled={Platform.OS === "ios"}
           scrollEventThrottle={16}
           scrollToOverflowEnabled={true}
           onScroll={
@@ -170,14 +174,18 @@ const TimeTable = ({ route }) => {
           }
           onMomentumScrollEnd={(event) => {
             let x = event.nativeEvent.contentOffset.x;
-            if (x === 0) {
+            x = Math.ceil(x);
+            let w = Math.round(ww())
+            console.log("x",x);
+            console.log("ww",w);
+            if (x===0) {
               setPage(1);
-            } else if (x === ww()) {
+            } else if (x === w) {
               setPage(2);
-            } else if (x === ww() * 2) {
+            } else if (x === w*2)  {
               setPage(3);
             } else {
-              setPage(4);
+              setPage(4)
             }
           }}
           showsHorizontalScrollIndicator={false}

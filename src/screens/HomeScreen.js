@@ -8,12 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addFav, removeFav } from "../redux/action";
 import { CustomHeader, Loader } from "../components";
-import { randomColor, scanQr, titleCase } from "../helpers";
-import { STYLES } from "../constants";
+import { randomColor, titleCase, wh, ww } from "../helpers";
+import { STYLES, White } from "../constants";
 import { Icon } from "react-native-elements";
-import { Camera, useCameraDevices, useFrameProcessor } from 'react-native-vision-camera';
-import { DBRConfig, decode, TextResult } from 'vision-camera-dynamsoft-barcode-reader';
-import * as REA from 'react-native-reanimated';
+import QRCodeScanner from "react-native-qrcode-scanner";
 
 
 const HomeScreen = () => {
@@ -25,30 +23,18 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const addToFav = fav => dispatch(addFav(fav));
   const removeFromFav = fav => dispatch(removeFav(fav));
-  const [hasPermission, setHasPermission] = useState(false);
-  const [barcodeResults, setBarcodeResults] = useState([]);
-  const devices = useCameraDevices();
-  const device = devices.back;
 
-  const frameProcessor = useFrameProcessor((frame) => {
-    let id = "1";
-    let from = "490000235Z";
-    let to = "490011632BA";
-    'worklet'
-    const config:DBRConfig = {};
-    config.template="{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
-    const results  = decode(frame,config)
-    console.log("result ne",results);
-    navigation.navigate("TimeTable",{qr:`https://api.tfl.gov.uk/Line/${id}/Timetable/${from}/to/${to}`})
-    //REA.runOnJS(setBarcodeResults)(results);
-  }, [])
+  const onSuccess = async (e) => {
+    console.log("e=>",e)
+    let qr = e.data.split("-");
+    console.log("qr",qr)
+    let id = qr[0];
+    let from = qr[1];
+    let to = qr[2];
+    let title = qr[3];
+    navigation.navigate("TimeTable",{qr:`https://api.tfl.gov.uk/Line/${id}/Timetable/${from}/to/${to}`,title})
+  }
 
-  useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
-    })();
-  }, []);
 
   useEffect(() => {
     getLines();
@@ -58,14 +44,6 @@ const HomeScreen = () => {
     let mode = await axios.get("https://api.tfl.gov.uk/Line/Meta/Modes");
     setModes(mode.data);
     setLoading(false);
-  };
-
-  const handleAddFav = fav => {
-    addToFav(fav);
-  };
-
-  const handleRemoveFav = fav => {
-    removeFromFav(fav);
   };
 
   const ifExists = fav => {
@@ -95,7 +73,8 @@ const HomeScreen = () => {
     <SafeAreaView style={{ flex: 1,backgroundColor:"#FEFEFE"}}>
       <Loader loading={loading}/>
       <CustomHeader title={"Transportation For London"} onPressRight={()=>{
-        navigation.navigate("TimeTable",{qr:`https://api.tfl.gov.uk/Line/1/Timetable/490000235Z/to/490011632BA`,title:"xx"})
+        //navigation.navigate("TimeTable",{qr:`https://api.tfl.gov.uk/Line/1/Timetable/490000235Z/to/490011632BA`,title:"xx"})
+        setCameraVisible(true);
       }} qr/>
       <FlatList
         contentContainerStyle={{alignSelf:"center"}}
@@ -105,20 +84,18 @@ const HomeScreen = () => {
         numColumns={2}
       />
 
-      <Modal visible={cameraVisible}>
-        {device != null &&
-          hasPermission && (
-            <>
-              <Camera
-                style={StyleSheet.absoluteFill}
-                device={device}
-                isActive={true}
-                frameProcessor={frameProcessor}
-                frameProcessorFps={5}
-              />
-            </>
-          )}
-      </Modal>
+
+        <Modal visible={cameraVisible}>
+          <View style={{flex: 1}}>
+            <QRCodeScanner
+              onRead={onSuccess}
+              reactivate={true}
+              vibrate={false}
+              cameraStyle={{height: "100%", zIndex: -1}}
+              cameraContainerStyle={{height: wh()}}
+            />
+          </View>
+        </Modal>
     </SafeAreaView>
   );
 };

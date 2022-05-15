@@ -71,5 +71,23 @@ export const STYLES = StyleSheet.create({
     width: ww(0.8),
     height: '100%',
   },
+  barcodeTopView: {
+    width: ww(),
+    height: wh(.12),
+    marginTop: wh(.05),
+    backgroundColor: AppColor,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  barcodeCloseButton: {position: "absolute", right: ww(.04), top: wh(.07)},
+  qrButtonView: {
+    zIndex: -1,
+    width: ww(),
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    marginTop: wh(.05),
+    paddingHorizontal: ww(.04)
+  },
 
 });
